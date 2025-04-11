@@ -50,7 +50,11 @@
 - Simple file-based data storage (optional to upgrade to database)
 
 ---
+## 🧪 How to Run
 
-## 📂 File Structure Example
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/your-username/jobseek.git
+   cd jobseek
 
 
