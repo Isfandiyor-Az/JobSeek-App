@@ -1,4 +1,4 @@
-# 🌐 JobSeek - Multi-Language Job Portal (C++ OOP)
+# 🌐 JobSeek - Multi-Language Job Portal
 
 **JobSeek** is a multilingual job portal system built with **C++** using **Object-Oriented Programming (OOP)** principles. It connects **job seekers** with **employers** in a simple and structured way through a Command Line Interface (CLI). The app supports three languages: **English 🇬🇧**, **Uzbek 🇺🇿**, and **Russian 🇷🇺**.
 
