@@ -9,7 +9,7 @@ using namespace std;
 int main(){
     int user_choice;
     cout<<"\n==============================\n"
-            "\tWelcome to JobSeek"
+          "\tWelcome to JobSeek"
           "\n==============================\n"
           "Select your language:\n"
           "1. English\n"
@@ -18,6 +18,8 @@ int main(){
     cout<<"Enter your choice: ";
     cin>>user_choice;
     if (user_choice == 1){
+        User u1;
+        u1.Display();
     }
     else if (user_choice == 2){
 
@@ -26,8 +28,8 @@ int main(){
 
     }
     else{
-        cout <<"==============================\n"
+        cout <<"========================\n"
                "\tWrong Choice\n"
-               "==============================\n"<<endl;}
+               "========================\n"<<endl;}
     return 0;
 }
