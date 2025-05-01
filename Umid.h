@@ -70,5 +70,24 @@ void  JobseekerMenu()
     cin>>mchoice;
     switch (mchoice)
     {
-    
+    case 1:
+        cout<<"View all available jobs\n";
+        break;
+    case 2:
+        cout<<"Search job by keyword\n";
+        break;
+    case 3:
+        cout<<"Apply to a job\n";
+        break;
+    case 4: 
+        cout<<"View applied jobs\n";
+        break;
+    case 5:
+        
+        cout<<"Edit profile\n";
+        break;
+    case 6:
+        cout<<"Log out\n";
+        break;
+    default:
 }}

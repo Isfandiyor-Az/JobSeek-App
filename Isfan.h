@@ -46,7 +46,7 @@ void Employer_Reg()
     cout << "Who are you looking for? (write comma seperated if several): ";
     cin >> looking_for;
     
-    Employer newEmployer(name, email, p2, location, looking_for);
+    Employer newEmployer(name, email, p2, location, looking_for);                
     FileUtils<Employer>::write_new_user(newEmployer);
     
     cout << "🎉Registration successful! You can now log in" << endl;
