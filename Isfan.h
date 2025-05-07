@@ -15,10 +15,18 @@ void JobSeeker_Reg()
     cin >> name;
     cout << "Enter your email: ";
     cin >> email;
+    while(true)
+    {
     cout << "Create a password: ";
     cin >> p1;
     cout << "Confirm password: ";
     cin >> p2;
+    if(p2 == p1)
+    {
+        break;
+    }
+    cout<<"Enter again your passwords are not similar\n";
+}
     cout << "Enter your skills (comma separated): ";
     cin >> skills;
     cout << "Enter number of years you worked (only number): ";
@@ -37,10 +45,18 @@ void Employer_Reg()
     cin >> name;
     cout << "Enter your email: ";
     cin >> email;
+    while(true)
+    {
     cout << "Create a password: ";
     cin >> p1;
     cout << "Confirm password: ";
     cin >> p2;
+    if(p2 == p1)
+    {
+        break;
+    }
+    cout<<"Enter again your passwords are not similar\n";
+}
     cout << "Enter your company location: ";
     cin >> location;
     cout << "Who are you looking for? (write comma seperated if several): ";
