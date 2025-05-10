@@ -30,16 +30,18 @@ class Job
         char salary[30];
         char location[30];
         char requirements[30];
+    protected:
+        int applicants = 0;// array to store applicants
     public:
 
             // incase jn for job name , h for hours per week , s for salary
             Job(): job("Unknown") , hours_per_week(0), salary("Unknown"), location("Unknown"),requirements("Unknown") {}
             Job(const char jn[], int h, const char s[], const char loc[], const char req[]) {
-                strcpy(job, jn);
+                strcpy_s(job, jn);
                 hours_per_week = h;
-                strcpy(salary, s);
-                strcpy(location, loc);
-                strcpy(requirements, req);
+                strcpy_s(salary, s);
+                strcpy_s(location, loc);
+                strcpy_s(requirements, req);
             }
             void DisplayJobInfo()
             {
@@ -108,6 +110,17 @@ class Job
             }
 };
 
+void ApplicationSystem()
+{
+    // basically i need user inforamation what i mean is how they will user our application
+    fstream fin("application.dat",ios::binary|ios::in|ios::out);
+    if(!fin)
+    {
+        cout<<"Error opening file!"<<endl;
+        return;
+    }
+
+}
 void writeJobFile() // function to write job information to a file
 {
     fstream fout("job.dat",ios::binary|ios::app|ios::in);
@@ -160,7 +173,7 @@ void searchJobByKeyword()
 
 }
 
-void EditProfile()
+void EditJobProfile()
 {
     char search_name[30];
     cout << "Which job you want to search: ";
@@ -200,6 +213,7 @@ void EditProfile()
         cout << "3.Salary\n";
         cout << "4.Location\n";
         cout << "5.Requirements\n";
+        cout << "-----------------------------\n";
         cout << "Enter your choice: ";
         int choice;
         cin >> choice;
@@ -302,7 +316,9 @@ void  JobseekerMenu()
     cout<<"6.Log out\n";
     cout<<"7.Add new Job\n";
     cout<<"8.Delete job\n";
+    cout<<"-----------------------------\n";
     cout<<"Enter your choice: ";
+
     cin>>mchoice;
     cin.ignore(); // using int before strings could cause some problem so we use cin.ignore for salary not to be empty line
     switch (mchoice)
@@ -323,12 +339,13 @@ void  JobseekerMenu()
         break;
     case 5:
         cout<<"\t\tEdit profile\n";
-        EditProfile();
+        EditJobProfile();
         break;
     case 6:
         cout<<"\t\tLog out\n";
         AuthFlow();
         check_point = false;
+        break;
     case 7:
         cout<<"\t\tAdd new job\n";
         writeJobFile();

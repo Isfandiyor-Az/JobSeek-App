@@ -8,6 +8,7 @@ class Employee : public User
 protected:
     string skills, past_workplaces;
     double experience;
+    bool is_hired = false;
 
 public:
     Employee(string name, string email, string password, string skills, double experience, string past_workplaces) : 
@@ -19,5 +20,12 @@ public:
     { // return basic credentials. Prefer json, but can't implement it in c++. Needs refinement
         string result = string("{name:") + name + ",email:" + email + ",password:" + password + ",skills:" + skills + ",experience:" + to_string(experience) + ",past_workplaces:" + past_workplaces + "}";
         return result;
+    }
+    void setHiringStatus(bool status)
+    {
+        is_hired = status;
+    }
+    string getname() const{
+        return name;
     }
 };
