@@ -46,9 +46,9 @@ class Job
                 cout<<"\t\t\t Job information\n";
                 cout<<"\tJob: "<<job<<endl;
                 cout<<"\tHours per week: "<<hours_per_week<<endl;
-                cout<<"\tsalary: "<<salary<<endl;
-                cout<<"\t Location: "<<location<<endl;
-                cout<<"\t Requirements: "<<requirements<<endl;
+                cout<<"\tSalary: "<<salary<<endl;
+                cout<<"\tLocation: "<<location<<endl;
+                cout<<"\tRequirements: "<<requirements<<endl;
             }
 
             const char* getJobName() const {
@@ -108,7 +108,7 @@ class Job
             }
 };
 
-void writeJobeFile() // function to write job information to a file
+void writeJobFile() // function to write job information to a file
 {
     fstream fout("job.dat",ios::binary|ios::app|ios::in);
 
@@ -163,69 +163,114 @@ void searchJobByKeyword()
 void EditProfile()
 {
     char search_name[30];
-    cout<<"Which job you want to search: ";
-    cin.getline(search_name,30);
-    
-    ifstream fin("job.dat",ios::binary);
-    Job job_obj;
-    bool find=false;
-    
-    while(fin.read(reinterpret_cast<char*>(&job_obj),sizeof(job_obj)))
+    cout << "Which job you want to search: ";
+    cin.getline(search_name, 30);
+
+    fstream fin("job.dat", ios::binary | ios::in | ios::out);
+    if (!fin)
     {
-        if(strcmp(search_name,job_obj.getJobName())==1)
+        cerr << "Cannot open file for editing \n";
+        return;
+    }
+    int pos = 0; // useful for editing it will be used as a pointer
+    Job job_obj;
+    bool find = false;
+
+    while (fin.read(reinterpret_cast<char*>(&job_obj), sizeof(job_obj)))
+    {
+        if (strcmp(search_name, job_obj.getJobName()) == 0)
         {
             job_obj.DisplayJobInfo();
             find = true;
+            break;
             //123
         }
+        pos += sizeof(job_obj); // move the file pointer to the next record
     }
-    
-    if(!find)
+
+    if (!find)
     {
-        cout<<"Job is not found\n";
+        cout << "Job is not found\n";
     }
-    else{
-        cout<<"What do you want to edit?\n";
-        cout<<"1.Job name\n";
-        cout<<"2.Hours per week\n";
-        cout<<"3.Salary\n";
-        cout<<"4.Location\n";
-        cout<<"5.Requirements\n";
-        cout<<"Enter your choice: ";
+    else {
+
+        cout << "What do you want to edit?\n";
+        cout << "1.Job name\n";
+        cout << "2.Hours per week\n";
+        cout << "3.Salary\n";
+        cout << "4.Location\n";
+        cout << "5.Requirements\n";
+        cout << "Enter your choice: ";
         int choice;
-        cin>>choice;
+        cin >> choice;
         cin.ignore();
         switch (choice)
         {
         case 1:
-            cout<<"Enter new job name: ";
+            cout << "Enter new job name: ";
             job_obj.setJobname();
             break;
         case 2:
-            cout<<"Enter new hours per week: ";
+            cout << "\t\tEnter new hours per week \n ";
             job_obj.setHours();
             break;
         case 3:
-            cout<<"Enter new salary: ";
+            cout << "\t\tEnter new salary \n";
             job_obj.setSalary();
             break;
         case 4:
-            cout<<"Enter new location: ";
+            cout << "\t\tEnter new location \n";
             job_obj.setLocation();
             break;
         case 5:
-            cout<<"Enter new requirements: ";
+            cout << "\t\tEnter new requirements \n";
             job_obj.setRequirements();
             break;
         default:
-            cout<<"Invalid choice\n";
+            cout << "\tInvalid choice\n";
             break;
         }
+
     }
+    fin.seekp(pos); // set the position of the file pointer to the beginning of the file
+    fin.write(reinterpret_cast<char*>(&job_obj), sizeof(job_obj)); // write the updated record to the file2
     fin.close();
 
 }
 
+
+void DeleteJob()
+{
+    char search_name[30];
+    cout << "Enter the job name you want to delete: ";
+    cin.getline(search_name, 30);
+
+    ifstream fin("job.dat", ios::binary);  // Open the original file for reading
+    if (!fin) {
+        cout << "Error opening file!" << endl;
+        return;
+    }
+
+    ofstream fout("temp.dat", ios::binary);  // Create a temporary file for writing
+    Job job_obj;
+    bool found = false;
+
+    // Read all jobs and write them to the temporary file, skipping the job to be deleted
+    while (fin.read(reinterpret_cast<char*>(&job_obj), sizeof(job_obj))) {
+        if (strcmp(search_name, job_obj.getJobName()) != 0) {
+            // Write all jobs except the one to be deleted
+            fout.write(reinterpret_cast<const char*>(&job_obj), sizeof(job_obj));
+        }
+        else {
+            found = true;  // Job was found and will be deleted
+        }
+    }
+
+    fin.close();
+    fout.close();
+    remove("job.dat");
+    rename("temp.dat", "job.dat");
+}
 /*template<typename T>
 int WelcomePAge(T &user)  // welcome page for: clarifying who is user
 {
@@ -256,36 +301,41 @@ void  JobseekerMenu()
     cout<<"5.Edit profile\n";
     cout<<"6.Log out\n";
     cout<<"7.Add new Job\n";
+    cout<<"8.Delete job\n";
     cout<<"Enter your choice: ";
     cin>>mchoice;
     cin.ignore(); // using int before strings could cause some problem so we use cin.ignore for salary not to be empty line
     switch (mchoice)
     {
     case 1:
-        cout<<"View all available jobs\n";
+        cout<<"\t\tView all available jobs\n";
         readJobFile();
         break;
     case 2:
-        cout<<"Search job by keyword\n";
+        cout<<"\t\tSearch job by keyword\n";
         searchJobByKeyword();
         break;
     case 3:
-        cout<<"Apply to a job\n";
+        cout<<"\t\tApply to a job\n";
         break;
     case 4: 
-        cout<<"View applied jobs\n";
+        cout<<"\t\tView applied jobs\n";
         break;
     case 5:
-        cout<<"Edit profile\n";
+        cout<<"\t\tEdit profile\n";
         EditProfile();
         break;
     case 6:
-        cout<<"Log out\n";
+        cout<<"\t\tLog out\n";
         AuthFlow();
         check_point = false;
     case 7:
-        cout<<"Add new job\n";
-        writeJobeFile();
+        cout<<"\t\tAdd new job\n";
+        writeJobFile();
+        break;
+    case 8:
+        cout<<"\t\tDelete job\n";
+        DeleteJob();
         break;
     default:
         break;
