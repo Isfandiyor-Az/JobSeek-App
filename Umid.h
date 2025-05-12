@@ -21,6 +21,7 @@
 #include<iostream>
 #include<fstream>
 #include<cstring>
+
 using namespace std;
 class Job
 {
@@ -297,13 +298,12 @@ int WelcomePAge(T &user)  // welcome page for: clarifying who is user
     int choice ;
     cout<<"Enter your choice: ";
     cin>> choice;
-    return choice;
-} */
 
 
-void  JobseekerMenu()
+void JobseekerMenu()
 {
     int mchoice;
+<<<<<<< HEAD
     bool check_point = true;
     while(check_point)
     {
@@ -357,5 +357,40 @@ void  JobseekerMenu()
     default:
         break;
 }
+=======
+    cout << "\t\t\t----Jobseeker Menu ----\n"; // selecting operation they going to do
+    cout << "1.View all available jobs\n";
+    cout << "2.Search job by keyword\n"; // not logical to have search and apply to a job
+    cout << "3.Apply to a job\n";
+    cout << "4.View applied jobs\n";
+    cout << "5.Edit profile\n";
+    cout << "6.Log out\n";
+    cout << "Enter your choice: ";
+    cin >> mchoice;
+    switch (mchoice)
+    {
+    case 1:
+        cout << "View all available jobs\n";
+        break;
+    case 2:
+        cout << "Search job by keyword\n";
+        break;
+    case 3:
+        cout << "Apply to a job\n";
+        break;
+    case 4:
+        cout << "View applied jobs\n";
+        break;
+    case 5:
+
+        cout << "Edit profile\n";
+        break;
+    case 6:
+        cout << "Log out\n";
+        break;
+    default:
+    break;
+>>>>>>> 78a52e7 (Auth system)
     }
 }
+*/

@@ -1,8 +1,8 @@
 #include <iostream>
-#include "Asadbek.h"
-#include "Asan.h"
+// #include "Asadbek.h"
+// #include "Asan.h"
 #include "Isfan.h"
-#include "Umid.h"
+// #include "Umid.h"
 
 using namespace std;
 
@@ -31,7 +31,6 @@ int main(){
     //     cout <<"========================\n"
     //            "\tWrong Choice\n"
     //            "========================\n"<<endl;}
-    
     AuthFlow();
     return 0;
 }
