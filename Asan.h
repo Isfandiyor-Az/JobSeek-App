@@ -28,15 +28,17 @@
 #include<fstream>
 #include<string>
 #include"Umid.h"
+#include"Isfan.h"
 using namespace std;
 
+void AuthFlow();
 void EmployerMenu()
 {
     int mchoice;
     bool check_point = true;
     while(check_point)
     {
-    cout<<"\t\t\t----Employer Menu ----\n"; // selecting operation they going to do
+    cout<<"\n\t\t\t----Employer Menu ----\n"; // selecting operation they going to do
     cout<<"1.Post a Job\n";
     cout<<"2.Edit Posted Job\n";
     cout<<"3.Delete a Job\n";

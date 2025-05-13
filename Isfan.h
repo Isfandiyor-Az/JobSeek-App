@@ -13,9 +13,6 @@ void Login_flow(bool &success);
 
 void AuthFlow()
 {
-    cout << "\n===============================\n"
-	     "\nEmployer Register"
-	     "\n===============================\n";
 	bool success = false;
 	while (!success) {
 		int user_choice;
@@ -74,6 +71,7 @@ void JobSeeker_Reg(bool &success)
 {
 	string name, email, p1, p2, skills, past_workplaces;
 	double experience;
+	cout<<"\n\t------Jobseeker Registration------\t"<<endl;
 	cout << "Enter your full name: ";
 	cin >> name;
 	cout << "Enter your email: ";
@@ -103,6 +101,7 @@ void JobSeeker_Reg(bool &success)
 void Employer_Reg(bool & success)
 {
 	string name, email, p1, p2, location;
+	cout<<"\n\t------Employer Registration------\t"<<endl;
 	cout << "Enter your full name: ";
 	cin >> name;
 	cout << "Enter your email: ";

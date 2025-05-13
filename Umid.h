@@ -1,11 +1,4 @@
 // Umid's page to write some code
-
-// Welcome, [username]!
-// Please select your role:
-// 1. Job Seeker
-// 2. Employer
-// 3. Logout
-// Enter your choice:
 // 👤 Job Seeker Menu:
 // markdown
 // --- Job Seeker Menu ---
@@ -15,9 +8,7 @@
 // 4. View Applied Jobs
 // 5. Edit Profile
 // 6. Logout
-// Enter your choice:
-// 🏢 Employer Menu:
-// markdown
+
 #include<iostream>
 #include<fstream>
 #include<cstring>
@@ -286,111 +277,3 @@ void DeleteJob()
     remove("job.dat");
     rename("temp.dat", "job.dat");
 }
-/*template<typename T>
-int WelcomePAge(T &user)  // welcome page for: clarifying who is user
-{
-    cout<<"Welcome,"<<user.name<<"!"<<endl;
-    cout<<"\t\tSelect your role:\n";
-    cout<<"1.Job seeker\n";
-    cout<<"2.Employer\n";
-    cout<<"3.Logout\n";
-    
-    int choice ;
-    cout<<"Enter your choice: ";
-    cin>> choice;
-
-
-void JobseekerMenu()
-{
-    int mchoice;
-<<<<<<< HEAD
-    bool check_point = true;
-    while(check_point)
-    {
-    cout<<"\t\t\t----Jobseeker Menu ----\n"; // selecting operation they going to do
-    cout<<"1.View all available jobs\n";
-    cout<<"2.Search job by keyword\n"; // not logical to have search and apply to a job
-    cout<<"3.Apply to a job\n";
-    cout<<"4.View applied jobs\n";
-    cout<<"5.Edit profile\n";
-    cout<<"6.Log out\n";
-    cout<<"7.Add new Job\n";
-    cout<<"8.Delete job\n";
-    cout<<"-----------------------------\n";
-    cout<<"Enter your choice: ";
-
-    cin>>mchoice;
-    cin.ignore(); // using int before strings could cause some problem so we use cin.ignore for salary not to be empty line
-    switch (mchoice)
-    {
-    case 1:
-        cout<<"\t\tView all available jobs\n";
-        readJobFile();
-        break;
-    case 2:
-        cout<<"\t\tSearch job by keyword\n";
-        searchJobByKeyword();
-        break;
-    case 3:
-        cout<<"\t\tApply to a job\n";
-        break;
-    case 4: 
-        cout<<"\t\tView applied jobs\n";
-        break;
-    case 5:
-        cout<<"\t\tEdit profile\n";
-        EditJobProfile();
-        break;
-    case 6:
-        cout<<"\t\tLog out\n";
-        AuthFlow();
-        check_point = false;
-        break;
-    case 7:
-        cout<<"\t\tAdd new job\n";
-        writeJobFile();
-        break;
-    case 8:
-        cout<<"\t\tDelete job\n";
-        DeleteJob();
-        break;
-    default:
-        break;
-}
-=======
-    cout << "\t\t\t----Jobseeker Menu ----\n"; // selecting operation they going to do
-    cout << "1.View all available jobs\n";
-    cout << "2.Search job by keyword\n"; // not logical to have search and apply to a job
-    cout << "3.Apply to a job\n";
-    cout << "4.View applied jobs\n";
-    cout << "5.Edit profile\n";
-    cout << "6.Log out\n";
-    cout << "Enter your choice: ";
-    cin >> mchoice;
-    switch (mchoice)
-    {
-    case 1:
-        cout << "View all available jobs\n";
-        break;
-    case 2:
-        cout << "Search job by keyword\n";
-        break;
-    case 3:
-        cout << "Apply to a job\n";
-        break;
-    case 4:
-        cout << "View applied jobs\n";
-        break;
-    case 5:
-
-        cout << "Edit profile\n";
-        break;
-    case 6:
-        cout << "Log out\n";
-        break;
-    default:
-    break;
->>>>>>> 78a52e7 (Auth system)
-    }
-}
-*/
