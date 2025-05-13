@@ -81,4 +81,30 @@ protected:
         in.close();
         return (tmp.get_password() == password); // true -- login successful, false -- vice versa
     }
-};
+}; 
+
+Employer get_employer(int ID)
+{
+    ifstream in("Employer.dat", ios::binary);
+    Employer tmp;
+    int obj_size = sizeof(Employee);
+    bool check = false;
+
+    if (!in.is_open())
+    {
+        in.close();
+    }
+    
+    in.clear();
+    in.seekg((ID - 1) * obj_size, ios::beg);
+    in.read((char *)&tmp, obj_size);
+    if (in.fail())
+    {
+        cout << "Error: ID not found.\n";
+        in.close();
+        return tmp;
+    }
+    in.close();
+    return tmp;
+    
+}

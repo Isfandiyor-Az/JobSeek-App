@@ -2,6 +2,7 @@
 #include <iostream>
 #include "User.hpp"
 #include <fstream>
+
 using namespace std;
 
 class Employee : public User
@@ -21,6 +22,15 @@ public:
         copyCharArr(past_workplaces, this->past_workplaces, 30);
         this->experience = experience;
     };
+    void DisplayEmployeeInfo()
+    {
+        cout << "\t\t\t Employee information\n";
+        cout << "\tName: " << getname() << endl;
+        cout << "\tEmail: " << get_email() << endl;
+        cout << "\tSkills: " << skills << endl;
+        cout << "\tExperience: " << experience << endl;
+        cout << "\tPast workplaces: " << past_workplaces << endl;
+    }
 
     static void write_new_user(Employee &em)
     {
@@ -84,6 +94,7 @@ public:
         in.close();
         return (tmp.get_password() == password); // true -- login successful, false -- vice versa
     }
+    
     void setHiringStatus(bool status)
     {
         is_hired = status;
@@ -92,3 +103,27 @@ public:
         return name;
     }
 };
+
+Employee get_employee(int ID)
+{
+    ifstream in("Employee.dat", ios::binary);
+    Employee tmp;
+    int obj_size = sizeof(Employee);
+
+    if (!in.is_open())
+    {
+        in.close();
+    }
+    
+    in.clear();
+    in.seekg((ID - 1) * obj_size, ios::beg);
+    in.read((char *)&tmp, obj_size);
+
+    if (in.fail())
+    {
+        cout << "Error: ID not found.\n";
+        return tmp;
+    }
+    in.close();
+    return tmp;
+}

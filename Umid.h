@@ -21,8 +21,11 @@
 #include<iostream>
 #include<fstream>
 #include<cstring>
-
+#include "User.hpp"
+#include "Isfan.h"
 using namespace std;
+
+
 class Job
 {
     private:
@@ -44,6 +47,7 @@ class Job
                 strcpy_s(location, loc);
                 strcpy_s(requirements, req);
             }
+
             void DisplayJobInfo()
             {
                 cout<<"\t\t\t Job information\n";
@@ -53,7 +57,9 @@ class Job
                 cout<<"\tLocation: "<<location<<endl;
                 cout<<"\tRequirements: "<<requirements<<endl;
             }
-
+            int getApplicants() const {
+                return applicants;
+            }
             const char* getJobName() const {
                 return job;
             }
@@ -73,7 +79,9 @@ class Job
             const char* getRequirements() const {
                 return requirements;
             }
-
+            void setApplicants() {
+                applicants += 1;
+            }
 
             void setJobname()
             {
@@ -111,17 +119,85 @@ class Job
             }
 };
 
-void ApplicationSystem()
+void ApplicationSystem(Employee &employee_obj) // function to apply for a job
 {
     // basically i need user inforamation what i mean is how they will user our application
-    fstream fin("application.dat",ios::binary|ios::in|ios::out);
-    if(!fin)
+    //file for job applicatioon data
+    fstream app_file("application.dat",ios::binary|ios::in|ios::out);
+    
+    static int number_of_applicants =0 ; // it going to help when we have to read from file it will be used as a pointer
+    char search_name[30];
+    cout<<"Which job you want to search: ";
+    cin.getline(search_name,30);
+    
+    ifstream job_file("job.dat",ios::binary);
+    Job job_obj;
+    bool find=false;
+    while(job_file.read(reinterpret_cast<char*>(&job_obj),sizeof(job_obj)))
     {
-        cout<<"Error opening file!"<<endl;
+        if(strcmp(search_name,job_obj.getJobName())==0)
+        {
+            find = true;
+            job_obj.DisplayJobInfo();
+            cout<<"Do you want to apply for this job? (y/n): ";
+            char choice;
+            cin>>choice;
+            if(choice == 'y' || choice == 'Y')
+            {
+                job_obj.setApplicants();
+                cout<<"You have successfully applied for this job.\n";
+                cout<<"Total applicants: "<<job_obj.getApplicants()<<endl;
+                // write to application file
+                app_file.clear();
+                app_file.write(reinterpret_cast<char*>(&search_name),sizeof(search_name));
+                // there must be a writing information regarding user
+                int temp_id = employee_obj.get_ID();
+                app_file.write(reinterpret_cast<char*>(&temp_id),sizeof(temp_id));
+                
+            }
+            else
+            {
+                cout<<"You have not applied for this job.\n";
+                return;
+            }
+        }
+    }
+    
+    if(!find)
+    {
+        cout<<"Job is not found\n";
+    }
+    app_file.close();
+    job_file.close();
+}
+
+void ReadFromApplicationFile()
+{
+    ifstream app_file("application.dat", ios::binary);
+    if (!app_file) {
+        cerr << "Error opening application file.\n";
         return;
     }
+    char job_name[30];
+    int employee_id;
 
+    while (app_file.read(reinterpret_cast<char*>(&job_name), sizeof(job_name))) {
+        if (app_file.read(reinterpret_cast<char*>(&employee_id), sizeof(employee_id))) {
+            Job A = R_searchJobByKeyword(job_name);
+            A.DisplayJobInfo();
+            Employee employee_obj = get_employee(employee_id);
+            employee_obj.DisplayEmployeeInfo();
+            // You can add more information about the application here if needed
+        } 
+        else {
+            cerr << "Corrupted application entry found.\n";
+            break;
+        }
+    }
+
+    app_file.close();
 }
+
 void writeJobFile() // function to write job information to a file
 {
     fstream fout("job.dat",ios::binary|ios::app|ios::in);
@@ -144,7 +220,32 @@ void readJobFile() // function to read job information from a file
     }
     fin.close();
 }
+Job R_searchJobByKeyword(char search_name[30])
+{
+    ifstream fin("job.dat", ios::binary);
+    Job job_obj;
+    bool find = false;
 
+    while (fin.read(reinterpret_cast<char*>(&job_obj), sizeof(job_obj)))
+    {
+        if (strcmp(search_name, job_obj.getJobName()) == 0)
+        {
+            
+            return job_obj;
+            find = true;
+
+          
+        }
+    }
+
+    if (!find)
+    {
+        cout << "Job is not found\n";
+    }
+
+    fin.close();
+
+}
 void searchJobByKeyword()
 {
     char search_name[30];
@@ -303,7 +404,6 @@ int WelcomePAge(T &user)  // welcome page for: clarifying who is user
 void JobseekerMenu()
 {
     int mchoice;
-<<<<<<< HEAD
     bool check_point = true;
     while(check_point)
     {
@@ -357,40 +457,6 @@ void JobseekerMenu()
     default:
         break;
 }
-=======
-    cout << "\t\t\t----Jobseeker Menu ----\n"; // selecting operation they going to do
-    cout << "1.View all available jobs\n";
-    cout << "2.Search job by keyword\n"; // not logical to have search and apply to a job
-    cout << "3.Apply to a job\n";
-    cout << "4.View applied jobs\n";
-    cout << "5.Edit profile\n";
-    cout << "6.Log out\n";
-    cout << "Enter your choice: ";
-    cin >> mchoice;
-    switch (mchoice)
-    {
-    case 1:
-        cout << "View all available jobs\n";
-        break;
-    case 2:
-        cout << "Search job by keyword\n";
-        break;
-    case 3:
-        cout << "Apply to a job\n";
-        break;
-    case 4:
-        cout << "View applied jobs\n";
-        break;
-    case 5:
-
-        cout << "Edit profile\n";
-        break;
-    case 6:
-        cout << "Log out\n";
-        break;
-    default:
-    break;
->>>>>>> 78a52e7 (Auth system)
     }
 }
 */
