@@ -2,6 +2,7 @@
 #include <iostream>
 #include "Employee.hpp"
 #include "Employer.hpp"
+#include "Asan.h"
 
 void JobSeeker_Reg(bool &success);
 
@@ -44,6 +45,7 @@ void AuthFlow()
 				if(success) {
 					cout << "Authentication Successful!\n";
 				};
+				JobseekerMenu();
 			}
 			else if (op == 2)
 			{
@@ -51,6 +53,7 @@ void AuthFlow()
 				if(success) {
 					cout << "Authentication Successful!\n";
 				};
+				EmployerMenu();
 			}
 			else
 			{
@@ -166,14 +169,10 @@ void Login_flow(bool &success) {
 	if(opcode == '1')
 	{
 		success = Employee::validate_credentials(ID, password);
-		Employee employee_obj = get_employee(ID, password);
 	}
 		else if (opcode == '2')
 	{
-		success =  Employer::validate_credentials(ID, password);
-		Employer employer_obj = get_employer(ID, password);
-		
-		
+		success =  Employer::validate_credentials(ID, password);			
 	}
 		else
 		cout << "Improper input.\n";

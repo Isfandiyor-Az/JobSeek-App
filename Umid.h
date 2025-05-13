@@ -177,6 +177,7 @@ void ReadFromApplicationFile()
             Job A = R_searchJobByKeyword(job_name);
             A.DisplayJobInfo();
             Employee employee_obj = get_employee(employee_id);
+   
             employee_obj.DisplayEmployeeInfo();
             // You can add more information about the application here if needed
         } 
