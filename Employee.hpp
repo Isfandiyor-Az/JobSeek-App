@@ -57,7 +57,7 @@ public:
         }
         datafile.close();
     }
-    static bool find_user(string email, string password)
+    static bool find_user(string email, string password, Employee &res_obj)
     {
         Employee em;
         ifstream in("Employee.dat", ios::binary);
@@ -72,6 +72,7 @@ public:
         } 
         cout << "Failed to login. Check credentials or try again later.\n";
         in.close();
+        res_obj = em;
         return false;
     }
 
