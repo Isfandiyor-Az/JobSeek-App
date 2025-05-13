@@ -31,13 +31,6 @@
 #include"Isfan.h"
 using namespace std;
 
-#include <iostream>
-#include<fstream>
-#include<string>
-#include"Umid.h"
-#include"Isfan.h"
-
-using namespace std;
 
 void AuthFlow();
 void EmployerMenu()

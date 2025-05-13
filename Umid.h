@@ -38,7 +38,30 @@ class Job
                 strcpy_s(location, loc);
                 strcpy_s(requirements, req);
             }
+            Job R_searchJobByKeyword(char search_name[30])
+    {
+    ifstream fin("job.dat", ios::binary);
+    Job job_obj;
+    bool find = false;
 
+    while (fin.read(reinterpret_cast<char*>(&job_obj), sizeof(job_obj)))
+    {
+        if (strcmp(search_name, job_obj.getJobName()) == 0)
+        {
+            
+            return job_obj;
+            find = true;
+        }
+    }
+
+    if (!find)
+    {
+        cout << "Job is not found\n";
+    }
+
+    fin.close();
+
+}
             void DisplayJobInfo()
             {
                 cout<<"\t\t\t Job information\n";
@@ -174,10 +197,9 @@ void ReadFromApplicationFile()
 
     while (app_file.read(reinterpret_cast<char*>(&job_name), sizeof(job_name))) {
         if (app_file.read(reinterpret_cast<char*>(&employee_id), sizeof(employee_id))) {
-            Job A = R_searchJobByKeyword(job_name);
+            Job A = A.R_searchJobByKeyword(job_name);
             A.DisplayJobInfo();
             Employee employee_obj = get_employee(employee_id);
-   
             employee_obj.DisplayEmployeeInfo();
             // You can add more information about the application here if needed
         } 
@@ -211,30 +233,6 @@ void readJobFile() // function to read job information from a file
     job_obj.DisplayJobInfo();
     }
     fin.close();
-}
-Job R_searchJobByKeyword(char search_name[30])
-{
-    ifstream fin("job.dat", ios::binary);
-    Job job_obj;
-    bool find = false;
-
-    while (fin.read(reinterpret_cast<char*>(&job_obj), sizeof(job_obj)))
-    {
-        if (strcmp(search_name, job_obj.getJobName()) == 0)
-        {
-            
-            return job_obj;
-            find = true;
-        }
-    }
-
-    if (!find)
-    {
-        cout << "Job is not found\n";
-    }
-
-    fin.close();
-
 }
 void searchJobByKeyword()
 {
