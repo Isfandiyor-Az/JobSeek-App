@@ -45,7 +45,8 @@ void AuthFlow()
 				if(success) {
 					cout << "Authentication Successful!\n";
 				};
-				JobseekerMenu();
+				Employee jobseek;
+				JobseekerMenu(jobseek);
 			}
 			else if (op == 2)
 			{

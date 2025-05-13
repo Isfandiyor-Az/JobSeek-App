@@ -79,7 +79,7 @@ void EmployerMenu()
     }
 }
 
-void JobseekerMenu()
+void JobseekerMenu(Employee &jobseeker)
 {
     int mchoice;
     bool check_point = true;
@@ -109,7 +109,7 @@ void JobseekerMenu()
             break;
         case 3: 
             cout<<"\t\tApply to a Job\n";
-            ApplicationSystem();
+            ApplicationSystem(jobseeker);
             break;
         case 4:
             cout<<"\t\tView Applied Jobs\n";
