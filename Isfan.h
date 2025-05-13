@@ -164,10 +164,18 @@ void Login_flow(bool &success) {
 
 	int ID = stoi(ID_str); // stoi converts string to int
 	if(opcode == '1')
+	{
 		success = Employee::validate_credentials(ID, password);
-	else if (opcode == '2')
+		Employee employee_obj = get_employee(ID, password);
+	}
+		else if (opcode == '2')
+	{
 		success =  Employer::validate_credentials(ID, password);
-	else
+		Employer employer_obj = get_employer(ID, password);
+		
+		
+	}
+		else
 		cout << "Improper input.\n";
 
 	if ( success ) {
