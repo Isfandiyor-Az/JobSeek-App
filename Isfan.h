@@ -1,7 +1,7 @@
 #pragma once
 #include <iostream>
-#include "Employee.h"
-#include "Employer.h"
+#include "Employee.hpp"
+#include "Employer.hpp"
 #include "Asan.h"
 
 void JobSeeker_Reg(bool &success);
@@ -15,15 +15,16 @@ void Login_flow(bool &success);
 void AuthFlow()
 {
 	bool success = false;
-	while (!success) {
+	while (!success)
+	{
 		int user_choice;
 		cout << "\n==============================\n"
-		     "\tWelcome to JobSeek"
-		     "\n==============================\n"
-		     "1. Register\n"
-		     "2. Login\n"
-		     "3. Exit\n"
-		     << endl;
+				"\tWelcome to JobSeek"
+				"\n==============================\n"
+				"1. Register\n"
+				"2. Login\n"
+				"3. Exit\n"
+			 << endl;
 		cout << "Enter your choice: ";
 		cin >> user_choice;
 		cin.ignore();
@@ -31,30 +32,29 @@ void AuthFlow()
 		{
 			int op;
 			cout << "\n=============================\n"
-			     "  Who are you registering as?\n"
-			     "=============================\n"
-			     "1. Job Seeker\n"
-			     "2. Employer\n"
-			     "-----------------------------\n"
-			     "Enter your choice (1 or 2): ";
+					"  Who are you registering as?\n"
+					"=============================\n"
+					"1. Job Seeker\n"
+					"2. Employer\n"
+					"-----------------------------\n"
+					"Enter your choice (1 or 2): ";
 			cin >> op;
 			cin.ignore();
 			if (op == 1)
 			{
 				JobSeeker_Reg(success);
-				if(success) {
+				if (success)
+				{
 					cout << "Authentication Successful!\n";
 				};
-				Employee jobseek;
-				JobseekerMenu(jobseek);
 			}
 			else if (op == 2)
 			{
 				Employer_Reg(success);
-				if(success) {
+				if (success)
+				{
 					cout << "Authentication Successful!\n";
 				};
-				EmployerMenu();
 			}
 			else
 			{
@@ -63,7 +63,7 @@ void AuthFlow()
 		}
 		else if (user_choice == 2)
 		{
-            Login_flow(success);
+			Login_flow(success);
 		}
 		else if (user_choice == 3)
 		{
@@ -75,17 +75,19 @@ void JobSeeker_Reg(bool &success)
 {
 	string name, email, p1, p2, skills, past_workplaces;
 	double experience;
-	cout<<"\n\t------Jobseeker Registration------\t"<<endl;
+	cout << "\n\t------Jobseeker Registration------\t" << endl;
 	cout << "Enter your full name: ";
 	cin >> name;
 	cout << "Enter your email: ";
 	cin >> email;
-	while(p1 != "q" && p2 != "Q") {
-	    cout << "Create a password: ";
+	while (p1 != "q" && p2 != "Q")
+	{
+		cout << "Create a password: ";
 		cin >> p1;
 		cout << "Confirm password: ";
 		cin >> p2;
-		if(p1 == p2) break;
+		if (p1 == p2)
+			break;
 		cout << "Passwords are not Equal! (enter 'q' to quit)\n";
 	}
 
@@ -98,24 +100,27 @@ void JobSeeker_Reg(bool &success)
 	Employee newEmployee(name, email, p2, skills, experience, past_workplaces);
 	Employee::write_new_user(newEmployee);
 	cout << "Registration successful!\nYour ID is " << newEmployee.get_ID()
-	     << ". Please REMEMBER IT, as you will use it for login!" << endl;
+		 << ". Please REMEMBER IT, as you will use it for login!" << endl;
+	JobseekerMenu(newEmployee);
 	success = true;
 }
 
-void Employer_Reg(bool & success)
+void Employer_Reg(bool &success)
 {
 	string name, email, p1, p2, location;
-	cout<<"\n\t------Employer Registration------\t"<<endl;
+	cout << "\n\t------Employer Registration------\t" << endl;
 	cout << "Enter your full name: ";
 	cin >> name;
 	cout << "Enter your email: ";
 	cin >> email;
-	while(p1 != "q" && p2 != "Q") {
-	    cout << "Create a password: ";
+	while (p1 != "q" && p2 != "Q")
+	{
+		cout << "Create a password: ";
 		cin >> p1;
 		cout << "Confirm password: ";
 		cin >> p2;
-		if(p1 == p2) break;
+		if (p1 == p2)
+			break;
 		cout << "Passwords are not Equal! (enter 'q' to quit)\n";
 	}
 
@@ -124,41 +129,54 @@ void Employer_Reg(bool & success)
 	Employer newEmployer(name, email, p2, location);
 	Employer::write_new_user(newEmployer);
 	cout << "Registration successful!\nYour ID is " << newEmployer.get_ID()
-	     << ". Please REMEMBER IT, as you will use it for login!" << endl;
-	     success = true;
+		 << ". Please REMEMBER IT, as you will use it for login!" << endl;
+	success = true;
+	EmployerMenu(newEmployer);
 }
 
-void forgot_ID(bool &success, char &opcode) {
+void forgot_ID(bool &success, char &opcode)
+{
 	string email, password;
 	cout << "Enter Your email: ";
 	cin >> email;
 	cout << "Enter Your password: ";
 	cin >> password;
 
-	if(opcode == '1')
-		success = Employee::find_user(email, password);
+	if (opcode == '1')
+	{
+		Employee obj;
+		success = Employee::find_user(email, password, obj);
+		JobseekerMenu(obj);
+	}
 	else if (opcode == '2')
-		success =  Employer::find_user(email, password);
+	{
+		Employer obj;
+		success = Employer::find_user(email, password, obj);
+		EmployerMenu(obj);
+	}
 	else
 		cout << "Improper input.\n";
 }
 
-void Login_flow(bool &success) {
+void Login_flow(bool &success)
+{
 	string ID_str;
 	string password;
 	char opcode;
 
 	cout << "Please choose 1 or 2:\n"
-	     << "\t1. Login as a Job Seeker.\n"
-	     << "\t2. Login as an Employer.\n"
-	     << "Your choice: ";
+		 << "\t1. Login as a Job Seeker.\n"
+		 << "\t2. Login as an Employer.\n"
+		 << "Your choice: ";
 	cin >> opcode;
 	cin.ignore();
 	cout << "Enter Your ID. (Enter EMPTY LINE if you forgot your ID): ";
 	getline(cin, ID_str);
-	if (ID_str.empty()) {
+	if (ID_str.empty())
+	{
 		forgot_ID(success, opcode);
-		if(success) {
+		if (success)
+		{
 			cout << "Authentication Successful!\n";
 		};
 		return;
@@ -167,20 +185,34 @@ void Login_flow(bool &success) {
 	cin >> password;
 
 	int ID = stoi(ID_str); // stoi converts string to int
-	if(opcode == '1')
+	if (opcode == '1')
 	{
 		success = Employee::validate_credentials(ID, password);
-	}
-		else if (opcode == '2')
-	{
-		success =  Employer::validate_credentials(ID, password);			
-	}
+		if (success)
+		{
+			cout << "Authentication Successful!\n";
+			Employee obj = get_employee(ID);
+			JobseekerMenu(obj);
+		}
 		else
-		cout << "Improper input.\n";
-
-	if ( success ) {
-		cout << "Authentication Successful!\n";
-	} else {
-		cout << "Failed authentication!\n";
+		{
+			cout << "Failed to authenticate!\n";
+		}
 	}
+	else if (opcode == '2')
+	{
+		success = Employer::validate_credentials(ID, password);
+		if (success)
+		{
+			cout << "Authentication Successful!\n";
+			Employer obj = get_employer(ID);
+			EmployerMenu(obj);
+		}
+		else
+		{
+			cout << "Failed to authenticate!\n";
+		}
+	}
+	else
+		cout << "Improper input.\n";
 }

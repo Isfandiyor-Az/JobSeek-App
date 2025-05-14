@@ -1,39 +1,12 @@
-// Asan's page to write some code
-
-// --- Employer Menu ---
-// 1. Post a Job
-// 2. Edit Posted Job
-// 3. Delete a Job
-// 4. View Applicants for a Job
-// 5. Logout
-// Enter your choice:
-// 🔄 If user chooses Logout (from anywhere):
-
-// You have been logged out successfully.
-// Returning to Main Menu...
-// → Back to:
-
-// markdown
-
-// ==============================
-//         Welcome to JobSeek
-// ==============================
-// Select your language:
-// 1. English
-// 2. Uzbek
-// 3. Russian
-// Enter your choice:
-
 #include <iostream>
 #include<fstream>
 #include<string>
 #include"Umid.h"
-#include"Isfan.h"
+// #include"Isfan.h"
 using namespace std;
 
-
 void AuthFlow();
-void EmployerMenu()
+void EmployerMenu(Employer &obj)
 {
     int mchoice;
     bool check_point = true;
@@ -43,8 +16,9 @@ void EmployerMenu()
     cout<<"1.Post a Job\n";
     cout<<"2.Edit Posted Job\n";
     cout<<"3.Delete a Job\n";
-    cout<<"4.View Applicants for a Job\n";
-    cout<<"5.Log out\n";
+    cout<<"4.View posted jobs\n";
+    cout<<"5.Edit profile\n";
+    cout<<"6.Log out\n";
     cout<<"-----------------------------\n";
     cout<<"Enter your choice: ";
 
@@ -54,23 +28,27 @@ void EmployerMenu()
     {
         case 1:
             cout<<"\t\tPost a Job\n";
-            writeJobFile();
+            obj.add_to_post_IDs(Job::writeJobFile());
             break;
         case 2:
             cout<<"\t\tEdit Posted Job\n";
-            EditJobProfile();
+            Job::EditJobProfile();
             break;
         case 3: 
             cout<<"\t\tDelete a Job\n";
-            DeleteJob();
+            Job::DeleteJob();
             break;
         case 4:
-            cout<<"\t\tView Applicants for a Job\n";
+            cout<<"\t\tView posted jobs\n";
+            obj.view_posted_jobs();
             break;
         case 5:
-            cout<<"\t\tLog out\n";
-            AuthFlow();
-            check_point = false;
+            cout<<"\t\tEdit\n";
+            obj.edit_user();
+            break;
+        case 6:
+            cout<<"\t\tLogging out...\n";
+            check_point = false; // Just exit the loop without calling AuthFlow() here
             break;
         default:
             cout<<"Invalid choice! Please try again."<<endl;
@@ -79,7 +57,7 @@ void EmployerMenu()
     }
 }
 
-void JobseekerMenu(Employee &jobseeker)
+void JobseekerMenu(Employee &obj)
 {
     int mchoice;
     bool check_point = true;
@@ -101,27 +79,26 @@ void JobseekerMenu(Employee &jobseeker)
     {
         case 1:
             cout<<"\t\tView All Available Jobs\n";
-            readJobFile();
+            Job::readJobFile();
             break;
         case 2:
             cout<<"\t\tSearch Jobs by Keyword\n";
-            searchJobByKeyword();
+            Job::searchJobByKeyword();
             break;
         case 3: 
             cout<<"\t\tApply to a Job\n";
-            ApplicationSystem(jobseeker);
+            Job::ApplicationSystem(obj);
             break;
         case 4:
             cout<<"\t\tView Applied Jobs\n";
-            ReadFromApplicationFile();
+            Job::ReadFromApplicationFile();
             break;
         case 5:
             cout<<"\t\tEdit Profile\n";
-            EditJobProfile();
+            obj.edit_user();
             break;
         case 6:
-            cout<<"\t\tLog out\n";
-            AuthFlow();
+            cout<<"\t\tLogging out...\n";
             check_point = false;
             break;
         default:
