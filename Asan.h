@@ -101,6 +101,7 @@ void JobseekerMenu(Employee &obj)
         case 6:
             cout<<"\t\tLogging out...\n";
             check_point = false;
+            AuthFlow();
             break;
         default:
             cout<<"Invalid choice! Please try again."<<endl;
