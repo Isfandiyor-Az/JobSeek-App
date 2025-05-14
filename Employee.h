@@ -1,6 +1,6 @@
 #pragma once
 #include <iostream>
-#include "User.hpp"
+#include "User.h"
 #include <fstream>
 
 using namespace std;

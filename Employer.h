@@ -1,7 +1,8 @@
 #pragma once
 #include <iostream>
 #include <fstream>
-#include "User.hpp"
+#include "User.h"
+#include "Employee.h"
 using namespace std;
 
 class Employer : public User

@@ -12,7 +12,7 @@
 #include<iostream>
 #include<fstream>
 #include<cstring>
-#include "User.hpp"
+// #include "User.h"
 #include "Isfan.h"
 using namespace std;
 
@@ -38,32 +38,24 @@ class Job
                 strcpy_s(location, loc);
                 strcpy_s(requirements, req);
             }
-            Job R_searchJobByKeyword(char search_name[30])
-    {
-    ifstream fin("job.dat", ios::binary);
-    Job job_obj;
-    bool find = false;
+            Job R_searchJobByKeyword(char search_name[30]){
+                ifstream fin("job.dat", ios::binary);
+                Job job_obj;
+                bool find = false;
 
-    while (fin.read(reinterpret_cast<char*>(&job_obj), sizeof(job_obj)))
-    {
-        if (strcmp(search_name, job_obj.getJobName()) == 0)
-        {
-            
-            return job_obj;
-            find = true;
-        }
-    }
+                while (fin.read(reinterpret_cast<char*>(&job_obj), sizeof(job_obj)))
+                {
+                    if (strcmp(search_name, job_obj.getJobName()) == 0)
+                        {return job_obj;
+                        find = true;}}
 
     if (!find)
-    {
         cout << "Job is not found\n";
-    }
 
     fin.close();
 
 }
-            void DisplayJobInfo()
-            {
+            void DisplayJobInfo(){
                 cout<<"\t\t\t Job information\n";
                 cout<<"\tJob: "<<job<<endl;
                 cout<<"\tHours per week: "<<hours_per_week<<endl;

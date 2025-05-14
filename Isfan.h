@@ -1,7 +1,7 @@
 #pragma once
 #include <iostream>
-#include "Employee.hpp"
-#include "Employer.hpp"
+#include "Employee.h"
+#include "Employer.h"
 #include "Asan.h"
 
 void JobSeeker_Reg(bool &success);
