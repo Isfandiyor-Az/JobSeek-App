@@ -90,6 +90,7 @@ void JobseekerMenu(Employee &obj)
             Job::ApplicationSystem(obj);
             break;
         case 4:
+
             cout<<"\t\tView Applied Jobs\n";
             Job::ReadFromApplicationFile();
             break;
