@@ -49,6 +49,7 @@ void EmployerMenu(Employer &obj)
         case 6:
             cout<<"\t\tLogging out...\n";
             check_point = false; // Just exit the loop without calling AuthFlow() here
+            AuthFlow();
             break;
         default:
             cout<<"Invalid choice! Please try again."<<endl;

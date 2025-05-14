@@ -42,19 +42,21 @@ void AuthFlow()
 			cin.ignore();
 			if (op == 1)
 			{
-				JobSeeker_Reg(success);
 				if (success)
 				{
 					cout << "Authentication Successful!\n";
 				};
+				JobSeeker_Reg(success);
+				
 			}
 			else if (op == 2)
 			{
-				Employer_Reg(success);
 				if (success)
 				{
 					cout << "Authentication Successful!\n";
 				};
+				Employer_Reg(success);
+				
 			}
 			else
 			{
@@ -67,6 +69,7 @@ void AuthFlow()
 		}
 		else if (user_choice == 3)
 		{
+			return;
 		}
 	}
 }
