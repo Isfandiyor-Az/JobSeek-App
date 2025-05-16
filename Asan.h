@@ -17,8 +17,13 @@ void EmployerMenu(Employer &obj)
     cout<<"2.Edit Posted Job\n";
     cout<<"3.Delete a Job\n";
     cout<<"4.View posted jobs\n";
+<<<<<<< Updated upstream
     cout<<"5.Edit profile\n";
     cout<<"6.Log out\n";
+=======
+    // cout<<"5.Edit profile\n";
+    cout<<"5.Log out\n";
+>>>>>>> Stashed changes
     cout<<"-----------------------------\n";
     cout<<"Enter your choice: ";
 
@@ -42,13 +47,22 @@ void EmployerMenu(Employer &obj)
             cout<<"\t\tView posted jobs\n";
             obj.view_posted_jobs();
             break;
+        // case 5:
+        //     obj.edit_user();
+        //     break;
         case 5:
+<<<<<<< Updated upstream
             cout<<"\t\tEdit\n";
             obj.edit_user();
             break;
         case 6:
             cout<<"\t\tLogging out...\n";
             check_point = false; // Just exit the loop without calling AuthFlow() here
+=======
+            cout<<"\t\tLogging out...\n";
+            check_point = false; // Just exit the loop without calling AuthFlow() here
+            AuthFlow();
+>>>>>>> Stashed changes
             break;
         default:
             cout<<"Invalid choice! Please try again."<<endl;
@@ -68,8 +82,13 @@ void JobseekerMenu(Employee &obj)
     cout<<"2.Search Jobs by Keyword\n";
     cout<<"3.Apply to a Job\n";
     cout<<"4.View Applied Jobs\n";
+<<<<<<< Updated upstream
     cout<<"5.Edit Profile\n";
     cout<<"6. Logout\n";
+=======
+    // cout<<"5.Edit Profile\n";
+    cout<<"5. Logout\n";
+>>>>>>> Stashed changes
     cout<<"-----------------------------\n";
     cout<<"Enter your choice: ";
 
@@ -90,6 +109,7 @@ void JobseekerMenu(Employee &obj)
             Job::ApplicationSystem(obj);
             break;
         case 4:
+<<<<<<< Updated upstream
 
             cout<<"\t\tView Applied Jobs\n";
             Job::ReadFromApplicationFile();
@@ -99,8 +119,18 @@ void JobseekerMenu(Employee &obj)
             obj.edit_user();
             break;
         case 6:
+=======
+            cout<<"\t\tView Applied Jobs\n";
+            Job::ReadFromApplicationFile(obj);
+            break;
+        // case 5:
+        //     obj.edit_user();
+        //     break;
+        case 5:
+>>>>>>> Stashed changes
             cout<<"\t\tLogging out...\n";
             check_point = false;
+            AuthFlow();
             break;
         default:
             cout<<"Invalid choice! Please try again."<<endl;
